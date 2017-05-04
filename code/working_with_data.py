@@ -27,11 +27,11 @@ def plot_histogram(points, bucket_size, title=""):
 def compare_two_distributions():
 
     random.seed(0)
-
+    data = [1,2,5,8,6,98,45,4,8,2,2,5,8,2,36,9,4,1,2,5,8,3,2,5,99,8,45,12,3,4,84,51,2,3]
     uniform = [random.randrange(-100,101) for _ in range(200)]
     normal = [57 * inverse_normal_cdf(random.random())
               for _ in range(200)]
-
+    plot_histogram(data,2,"Mydata")
     plot_histogram(uniform, 10, "Uniform Histogram")
     plot_histogram(normal, 10, "Normal Histogram")
 
@@ -40,8 +40,8 @@ def random_normal():
     return inverse_normal_cdf(random.random())
 
 xs = [random_normal() for _ in range(1000)]
-ys1 = [ x + random_normal() / 2 for x in xs]
-ys2 = [-x + random_normal() / 2 for x in xs]
+ys1 = [ x+3 + random_normal() / 2 for x in xs]
+ys2 = [-x-3 + random_normal() / 2 for x in xs]
 
 
 def scatter():
@@ -70,11 +70,13 @@ def make_scatterplot_matrix():
     num_points = 100
     
     def random_row():
-        row = [None, None, None, None]
+        row = [None, None, None, None,None,None]
         row[0] = random_normal()
         row[1] = -5 * row[0] + random_normal()
         row[2] = row[0] + row[1] + 5 * random_normal()
         row[3] = 6 if row[2] > -2 else 0
+        row[4] = 8 * row[1] + random_normal()
+        row[5] = 6 if row[0] > -1 else 0
         return row
     random.seed(0)
     data = [random_row()
@@ -388,7 +390,9 @@ def transform(X, components):
     return [transform_vector(x_i, components) for x_i in X] 
 
 if __name__ == "__main__":
-
+    #make_scatterplot_matrix()
+    #scatter()
+    #compare_two_distributions()
     print "correlation(xs, ys1)", correlation(xs, ys1)
     print "correlation(xs, ys2)", correlation(xs, ys2)
 
@@ -399,8 +403,13 @@ if __name__ == "__main__":
     with open("comma_delimited_stock_prices.csv", "rb") as f:
         reader = csv.reader(f)
         for line in parse_rows_with(reader, [dateutil.parser.parse, None, float]):
-            data.append(line)
-
+            if any(x is None for x in line):
+                pass
+            else:
+                data.append(line)
+    print ("========= 1 ==========")
+    print data
+    print ("========= 2 ===========")
     for row in data:
         if any(x is None for x in row):
             print row
