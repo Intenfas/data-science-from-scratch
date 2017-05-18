@@ -99,3 +99,11 @@ if __name__ == "__main__":
 
     print "precision", precision
     print "recall", recall
+
+    x1=[5,10000]
+    x2=[1,600000]
+    x3=[0,8763]
+
+    print (logistic(dot(beta_hat,x1)))
+    print (logistic(dot(beta_hat, x2)))
+    print (logistic(dot(beta_hat, x3)))

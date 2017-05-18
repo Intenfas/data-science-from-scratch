@@ -99,6 +99,12 @@ if __name__ == "__main__":
 
     random.seed(0)
     beta = estimate_beta(x, daily_minutes_good) # [30.63, 0.972, -1.868, 0.911]
+    print ("\n====Test====")
+    x1=[1,50,3,1]
+    x2=[1,80,9,1]
+    print (predict(x1,beta))
+    print (predict(x2, beta))
+    print ("====Test End====\n")
     print "beta", beta
     print "r-squared", multiple_r_squared(x, daily_minutes_good, beta)
     print
@@ -108,7 +114,7 @@ if __name__ == "__main__":
     close_to_100 = [99.5 + random.random() for _ in range(101)]
 
     # 101 points, 50 of them near 0, 50 of them near 200
-    far_from_100 = ([99.5 + random.random()] + 
+    far_from_100 = ([99.5 + random.random()] +
                     [random.random() for _ in range(50)] +
                     [200 + random.random() for _ in range(50)])
 
