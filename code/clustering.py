@@ -63,9 +63,9 @@ def plot_squared_clustering_errors(plt):
 # using clustering to recolor an image
 #
 
-def recolor_image(input_file, k=5):
+def recolor_image(input_file, k=2):
 
-    img = mpimg.imread(path_to_png_file)
+    img = mpimg.imread(input_file)
     pixels = [pixel for row in img for pixel in row]
     clusterer = KMeans(k)
     clusterer.train(pixels) # this might take a while    
@@ -177,6 +177,10 @@ if __name__ == "__main__":
     print "2-means:"
     print clusterer.means
     print
+
+    print("Picture")
+    recolor_image("C:/tt/a.png")
+
 
     print "errors as a function of k"
 
